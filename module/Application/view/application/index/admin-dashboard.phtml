@@ -1,0 +1,123 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Admin Dashboard</h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+    <p class="welcome-text">Welcome, <?php echo $this->escapeHtml($adminEmail); ?> (Role: <?php echo $this->escapeHtml($role); ?>)</p>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link active" href="<?php echo $this->url('adminDashboard'); ?>" aria-current="page">Dashboard</a>
+        <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+        <a class="nav-link" href="<?php echo $this->url('users'); ?>">Manage Users</a>
+        <a class="nav-link" href="<?php echo $this->url('borrows'); ?>">Manage Borrows</a>
+        <?php if ($role === 'Super Admin'): ?>
+            <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+            <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+        <?php endif; ?>
+    </nav>
+
+    <h3 class="section-title"><i class="bi bi-book me-2"></i>Low Stock Books (Quantity ≤ 5)</h3>
+    <?php if (count($lowStockBooks) > 0): ?>
+        <table class="table table-low-stock">
+            <caption>Books with low stock (quantity ≤ 5)</caption>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($lowStockBooks as $book): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($book->id); ?></td>
+                        <td><?php echo $this->escapeHtml($book->title); ?></td>
+                        <td><?php echo $this->escapeHtml($book->author); ?></td>
+                        <td><?php echo $this->escapeHtml($book->quantity); ?></td>
+                        <td><?php echo $this->escapeHtml($book->status); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="no-data">No books with low stock.</p>
+    <?php endif; ?>
+
+    <h3 class="section-title"><i class="bi bi-list-ul me-2"></i>All Borrow Records</h3>
+    <?php if (count($allBorrows) > 0): ?>
+        <table class="table">
+            <caption>All borrow records</caption>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Student Email</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Borrow Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Borrow Fee (€)</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Penalty (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($allBorrows as $borrow): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($borrow->id); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->student_email); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->book_title); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->borrow_date); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->due_date); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->return_date); ?></td>
+                        <td><?php echo number_format($borrow->borrow_fee, 2); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->status); ?></td>
+                        <td><?php echo number_format($borrow->getPenalty($penaltyRate), 2); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="no-data">No borrow records found.</p>
+    <?php endif; ?>
+
+    <h3 class="section-title"><i class="bi bi-exclamation-triangle me-2"></i>Overdue Borrows</h3>
+    <?php if (count($overdueBorrows) > 0): ?>
+        <table class="table table-overdue">
+            <caption>Overdue borrow records</caption>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Student Email</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Borrow Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Borrow Fee (€)</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Penalty (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($overdueBorrows as $borrow): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($borrow->id); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->student_email); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->book_title); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->borrow_date); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->due_date); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->return_date); ?></td>
+                        <td><?php echo number_format($borrow->borrow_fee, 2); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->status); ?></td>
+                        <td><?php echo number_format($borrow->getPenalty($penaltyRate), 2); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="no-data">No overdue borrows found.</p>
+    <?php endif; ?>
+    
+</div>

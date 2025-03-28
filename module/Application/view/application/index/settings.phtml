@@ -1,0 +1,31 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>System Settings</h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+        <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+        <a class="nav-link" href="<?php echo $this->url('users'); ?>">Manage Users</a>
+        <a class="nav-link active" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>" aria-current="page">Settings</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+    </nav>
+
+    <form method="post" action="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">
+        <div class="mb-3">
+            <label for="borrow_fee" class="form-label">Borrow Fee (€)</label>
+            <input type="number" step="0.01" name="borrow_fee" id="borrow_fee" class="form-control" value="<?php echo $this->escapeHtml($settings['borrow_fee']); ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="penalty_rate" class="form-label">Penalty Rate (€ per day)</label>
+            <input type="number" step="0.01" name="penalty_rate" id="penalty_rate" class="form-control" value="<?php echo $this->escapeHtml($settings['penalty_rate']); ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="borrowing_limit" class="form-label">Borrowing Limit (books per student)</label>
+            <input type="number" name="borrowing_limit" id="borrowing_limit" class="form-control" value="<?php echo $this->escapeHtml($settings['borrowing_limit']); ?>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Settings</button>
+    </form>
+</div>

@@ -1,0 +1,48 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Penalty Payment History</h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+        <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+        <a class="nav-link" href="<?php echo $this->url('users'); ?>">Manage Users</a>
+        <a class="nav-link" href="<?php echo $this->url('borrows'); ?>">Manage Borrows</a>
+        <a class="nav-link active" href="<?php echo $this->url('borrows', ['action' => 'payments']); ?>" aria-current="page">Payment History</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+    </nav>
+
+    <h3 class="section-title"><i class="bi bi-cash-stack me-2"></i>Penalty Payment History</h3>
+    <?php if (count($payments) > 0): ?>
+        <table class="table">
+            <caption>Penalty payment history</caption>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Borrow ID</th>
+                    <th scope="col">Student Email</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Amount ($)</th>
+                    <th scope="col">Payment Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($payments as $payment): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($payment->id); ?></td>
+                        <td><?php echo $this->escapeHtml($payment->borrow_id); ?></td>
+                        <td><?php echo $this->escapeHtml($payment->student_email); ?></td>
+                        <td><?php echo $this->escapeHtml($payment->book_title); ?></td>
+                        <td><?php echo number_format($payment->amount, 2); ?></td>
+                        <td><?php echo $this->escapeHtml($payment->payment_date); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="no-data">No payment records found.</p>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="mb-4">Login</h2>
+
+        <!-- Flash Messages -->
+        <?php
+        $messages = $this->flashMessenger()->getMessages();
+        if (!empty($messages)) {
+            foreach ($messages as $message) {
+                echo '<div class="alert alert-info">' . $this->escapeHtml($message) . '</div>';
+            }
+        }
+        ?>
+
+        <?php
+        $form = $this->form;
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+
+        <div class="form-group">
+            <?php
+            $email = $form->get('email');
+            echo $this->formLabel($email);
+            echo $this->formElement($email);
+            echo $this->formElementErrors($email);
+            ?>
+        </div>
+
+        <div class="form-group">
+            <?php
+            $password = $form->get('password');
+            echo $this->formLabel($password);
+            echo $this->formElement($password);
+            echo $this->formElementErrors($password);
+            ?>
+        </div>
+
+        <div class="form-group">
+            <?php
+            $submit = $form->get('submit');
+            echo $this->formElement($submit);
+            ?>
+        </div>
+
+        <?php echo $this->form()->closeTag(); ?>
+    </div>
+</div>

@@ -1,0 +1,178 @@
+/* General Styles */
+body {
+    background-color: #f4f6f9; /* Light gray background for a clean look */
+    font-family: 'Roboto', sans-serif; /* Use a modern font */
+}
+
+/* Navigation Bar */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff !important; /* Ensure the brand text is white */
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #17a2b8 !important; /* Cyan hover effect for links */
+}
+
+.navbar .btn-outline-light {
+    border-color: #ffffff;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.navbar .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+/* Jumbotron (Homepage Welcome Section) */
+.jumbotron {
+    background: linear-gradient(135deg, #007bff 0%, #00c4b4 100%); /* Gradient background */
+    color: #ffffff;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow for readability */
+    margin-bottom: 2rem;
+}
+
+.jumbotron h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.jumbotron p.lead {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.jumbotron .btn-primary {
+    background-color: #ffffff;
+    color: #007bff;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.jumbotron .btn-primary:hover {
+    background-color: #e9ecef;
+    color: #0056b3;
+}
+
+/* Cards (Homepage Feature Cards) */
+.card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.card-text {
+    color: #6c757d;
+}
+
+/* Login Page Card */
+.card.mt-5 {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.card-header h4 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #343a40;
+}
+
+.form-control, .form-select {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 0.75rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Flash Messages (Login Page) */
+.alert-info {
+    background-color: #e7f1ff;
+    color: #004085;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Footer */
+footer {
+    background-color: #343a40 !important;
+    padding: 1.5rem 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .jumbotron h1 {
+        font-size: 2rem;
+    }
+
+    .jumbotron p.lead {
+        font-size: 1rem;
+    }
+
+    .card {
+        margin-bottom: 1.5rem;
+    }
+}

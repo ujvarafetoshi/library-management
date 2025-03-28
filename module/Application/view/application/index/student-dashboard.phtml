@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Welcome Dear Student!</h1>
+
+        <!-- Flash Messages -->
+        <?php
+        $messages = $this->flashMessenger()->getMessages();
+        if (!empty($messages)) {
+            foreach ($messages as $message) {
+                echo '<div class="alert alert-info">' . $this->escapeHtml($message) . '</div>';
+            }
+        }
+        ?>
+
+        <!-- Available Books -->
+        <h2>Available Books to Borrow</h2>
+        <?php if (!empty($this->availableBooks)): ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Available Quantity</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->availableBooks as $book): ?>
+                        <tr>
+                            <td><?php echo $this->escapeHtml($book->title); ?></td>
+                            <td><?php echo $this->escapeHtml($book->author); ?></td>
+                            <td><?php echo $this->escapeHtml($book->availableQuantity); ?></td>
+                            <td>
+                                <form method="post" action="<?php echo $this->url('studentDashboard'); ?>">
+                                    <input type="hidden" name="book_id" value="<?php echo $this->escapeHtml($book->id); ?>">
+                                    <input type="hidden" name="action" value="borrow">
+                                    <button type="submit" class="btn btn-sm btn-primary">Borrow</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>No books are currently available to borrow.</p>
+        <?php endif; ?>
+
+        <!-- Search Form -->
+        <h2>Search for Books</h2>
+        <form method="get" action="<?php echo $this->url('studentDashboard'); ?>">
+            <div class="input-group mb-3">
+                <input type="text" name="search" class="form-control" placeholder="Search by title or author" value="<?php echo $this->escapeHtml($this->searchTerm ?? ''); ?>">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        <!-- Search Results -->
+        <?php if (!empty($this->searchResults)): ?>
+            <h3>Search Results</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->searchResults as $book): ?>
+                        <tr>
+                            <td><?php echo $this->escapeHtml($book->title); ?></td>
+                            <td><?php echo $this->escapeHtml($book->author); ?></td>
+                            <td><?php echo $this->escapeHtml($book->quantity); ?></td>
+                            <td><?php echo $this->escapeHtml($book->status); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+        <!-- Borrowing History -->
+        <h2>Your Borrowing History</h2>
+        <?php if (count($this->borrowingHistory) > 0): ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Book Title</th>
+                        <th>Borrow Date</th>
+                        <th>Due Date</th>
+                        <th>Return Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->borrowingHistory as $borrow): ?>
+                        <tr>
+                            <td><?php echo $this->escapeHtml($borrow->book_title ?? 'Unknown Book'); ?></td>
+                            <td><?php echo $this->escapeHtml($borrow->borrow_date); ?></td>
+                            <td><?php echo $this->escapeHtml($borrow->due_date); ?></td>
+                            <td><?php echo $this->escapeHtml($borrow->return_date ?? 'Not Returned'); ?></td>
+                            <td><?php echo $this->escapeHtml($borrow->status); ?></td>
+                            <td>
+                                <?php if ($borrow->status === 'Aktiv'): ?>
+                                    <form method="post" action="<?php echo $this->url('studentDashboard'); ?>">
+                                        <input type="hidden" name="borrow_id" value="<?php echo $this->escapeHtml($borrow->id); ?>">
+                                        <button type="submit" class="btn btn-sm btn-danger">Return</button>
+                                    </form>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>You have no borrowing history.</p>
+        <?php endif; ?>
+    </div>
+</div>

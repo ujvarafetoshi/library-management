@@ -1,0 +1,88 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Manage Users</h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+        <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+        <a class="nav-link active" href="<?php echo $this->url('users'); ?>" aria-current="page">Manage Users</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+    </nav>
+
+    <h3 class="section-title"><i class="bi bi-person me-2"></i>Students</h3>
+    <div class="mb-3">
+        <?php if ($isSuperAdmin): ?>
+            <a href="<?php echo $this->url('users', ['action' => 'add-student']); ?>" class="btn btn-success">Add New Student</a>
+        <?php endif; ?>
+    </div>
+    <?php if (count($students) > 0): ?>
+        <table class="table">
+            <caption>All students in the system</caption>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($students as $student): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($student->id); ?></td>
+                        <td><?php echo $this->escapeHtml($student->name); ?></td>
+                        <td><?php echo $this->escapeHtml($student->email); ?></td>
+                        <td>
+                            <a href="<?php echo $this->url('users', ['action' => 'view-student', 'id' => $student->id]); ?>" class="btn btn-info btn-sm">View</a>
+                            <?php if ($isSuperAdmin): ?>
+                                <a href="<?php echo $this->url('users', ['action' => 'delete-student', 'id' => $student->id]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="no-data">No students found.</p>
+    <?php endif; ?>
+
+    <?php if ($isSuperAdmin): ?>
+        <h3 class="section-title"><i class="bi bi-person-gear me-2"></i>Operators</h3>
+        <div class="mb-3">
+            <a href="<?php echo $this->url('users', ['action' => 'add-operator']); ?>" class="btn btn-success">Add New Operator</a>
+        </div>
+        <?php if (count($operators) > 0): ?>
+            <table class="table">
+                <caption>All operators in the system</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($operators as $operator): ?>
+                        <tr>
+                            <td><?php echo $this->escapeHtml($operator->id); ?></td>
+                            <td><?php echo $this->escapeHtml($operator->name); ?></td>
+                            <td><?php echo $this->escapeHtml($operator->email); ?></td>
+                            <td><?php echo $this->escapeHtml($operator->role); ?></td>
+                            <td>
+                                <a href="<?php echo $this->url('users', ['action' => 'delete-operator', 'id' => $operator->id]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this operator?');">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p class="no-data">No operators found.</p>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>

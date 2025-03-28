@@ -1,0 +1,39 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Add New Operator</h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+        <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+        <a class="nav-link active" href="<?php echo $this->url('users'); ?>" aria-current="page">Manage Users</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+    </nav>
+
+    <form method="post" action="<?php echo $this->url('users', ['action' => 'add-operator']); ?>">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" name="name" id="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select name="role" id="role" class="form-control" required>
+                <option value="Operator">Operator</option>
+                <option value="Super Admin">Super Admin</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="<?php echo $this->url('users'); ?>" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

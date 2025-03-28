@@ -1,0 +1,44 @@
+<!-- C:\xampp\htdocs\library-management\module\Application\view\application\book\index.phtml -->
+<h1>Books</h1>
+
+<?php if ($this->flashMessenger()->hasMessages()): ?>
+    <ul>
+        <?php foreach ($this->flashMessenger()->getMessages() as $message): ?>
+            <li><?= $this->escapeHtml($message) ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+<p><a href="<?= $this->url('books', ['action' => 'add']) ?>">Add New Book</a></p>
+
+<?php if ($this->books): ?>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->books as $book): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($book->id) ?></td>
+                    <td><?= $this->escapeHtml($book->title) ?></td>
+                    <td><?= $this->escapeHtml($book->author) ?></td>
+                    <td><?= $this->escapeHtml($book->quantity) ?></td>
+                    <td><?= $this->escapeHtml($book->quantity > 0 ? 'Disponueshëm' : 'Jo Disponueshëm') ?></td>
+                    <td>
+                        <a href="<?= $this->url('books', ['action' => 'edit', 'id' => $book->id]) ?>">Edit</a> |
+                        <a href="<?= $this->url('books', ['action' => 'delete', 'id' => $book->id]) ?>" onclick="return confirm('Are you sure you want to delete this book?')">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No books found.</p>
+<?php endif; ?>

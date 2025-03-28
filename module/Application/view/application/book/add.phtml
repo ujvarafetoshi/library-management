@@ -1,0 +1,39 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Add New Book</h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+        <a class="nav-link active" href="<?php echo $this->url('books'); ?>" aria-current="page">Manage Books</a>
+        <a class="nav-link" href="<?php echo $this->url('users'); ?>">Manage Users</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+    </nav>
+
+    <form method="post" action="<?php echo $this->url('books', ['action' => 'add']); ?>">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" id="title" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" name="author" id="author" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" name="quantity" id="quantity" class="form-control" min="0" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select name="status" id="status" class="form-control" required>
+                <option value="Available">Available</option>
+                <option value="Unavailable">Unavailable</option>
+            </select>
+        </div>
+        <button type="submit" name="submit" class="btn btn-primary">Save</button>
+        <a href="<?php echo $this->url('books'); ?>" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

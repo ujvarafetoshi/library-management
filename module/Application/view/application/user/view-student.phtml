@@ -1,0 +1,50 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Student Details: <?php echo $this->escapeHtml($this->student->first_name . ' ' . $this->student->last_name); ?></h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+        <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+        <a class="nav-link active" href="<?php echo $this->url('users'); ?>" aria-current="page">Manage Users</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+    </nav>
+
+    <h3 class="section-title"><i class="bi bi-list-ul me-2"></i>Borrowing History</h3>
+    <?php if (count($this->borrowingHistory) > 0): ?>
+        <table class="table">
+            <caption>Borrowing history for <?php echo $this->escapeHtml($this->student->first_name . ' ' . $this->student->last_name); ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Borrow Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Penalty ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->borrowingHistory as $borrow): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($borrow->id); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->book_title); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->borrow_date); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->due_date); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->return_date ?? 'Not Returned'); ?></td>
+                        <td><?php echo $this->escapeHtml($borrow->status); ?></td>
+                        <td><?php echo $this->escapeHtml(number_format($borrow->penalty, 2)); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="no-data">No borrowing history found.</p>
+    <?php endif; ?>
+
+    <a href="<?php echo $this->url('users'); ?>" class="btn btn-secondary">Back to Users</a>
+</div>

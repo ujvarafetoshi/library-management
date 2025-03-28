@@ -1,0 +1,75 @@
+<h1>Manage Users</h1>
+
+<!-- Navigation Bar -->
+<nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+    <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+    <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+    <a class="nav-link active" href="<?php echo $this->url('users'); ?>" aria-current="page">Manage Users</a>
+    <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+    <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+</nav>
+
+<!-- Flash Messages -->
+<?php if ($this->flashMessenger()->hasMessages()): ?>
+    <div class="alert alert-info">
+        <?php echo implode('<br>', $this->flashMessenger()->getMessages()); ?>
+    </div>
+<?php endif; ?>
+
+<!-- Add Buttons -->
+<div class="mb-3">
+    <a href="<?php echo $this->url('users', ['action' => 'add-operator']); ?>" class="btn btn-primary">Add New Operator</a>
+    <a href="<?php echo $this->url('users', ['action' => 'add-student']); ?>" class="btn btn-primary">Add New Student</a>
+</div>
+
+<!-- Operators Table -->
+<h2>Operators</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
+    <?php foreach ($this->users as $user): ?>
+    <tr>
+        <td><?= $this->escapeHtml($user->id) ?></td>
+        <td><?= $this->escapeHtml($user->name) ?></td>
+        <td><?= $this->escapeHtml($user->email) ?></td>
+        <td><?= $this->escapeHtml($user->role) ?></td>
+        <td>
+            <a href="<?php echo $this->url('users', ['action' => 'view-operator', 'id' => $user->id]); ?>" class="btn btn-sm btn-info">View</a>
+            <a href="<?php echo $this->url('users', ['action' => 'edit-operator', 'id' => $user->id]); ?>" class="btn btn-sm btn-warning">Edit</a>
+            <a href="<?php echo $this->url('users', ['action' => 'delete-operator', 'id' => $user->id]); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+<!-- Students Table -->
+<h2>Students</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Penalties</th>
+        <th>Actions</th>
+    </tr>
+    <?php foreach ($this->students as $student): ?>
+    <tr>
+        <td><?= $this->escapeHtml($student->id) ?></td>
+        <td><?= $this->escapeHtml($student->first_name) ?></td>
+        <td><?= $this->escapeHtml($student->last_name) ?></td>
+        <td><?= $this->escapeHtml($student->email) ?></td>
+        <td>$<?= $this->escapeHtml(number_format($student->penalties, 2)) ?></td>
+        <td>
+            <a href="<?php echo $this->url('users', ['action' => 'view-student', 'id' => $student->id]); ?>" class="btn btn-sm btn-info">View</a>
+            <a href="<?php echo $this->url('users', ['action' => 'edit-student', 'id' => $student->id]); ?>" class="btn btn-sm btn-warning">Edit</a>
+            <a href="<?php echo $this->url('users', ['action' => 'delete-student', 'id' => $student->id]); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>

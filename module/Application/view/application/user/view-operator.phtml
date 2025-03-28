@@ -1,0 +1,37 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Operator Details: <?php echo $this->escapeHtml($this->operator->name); ?></h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+        <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+        <a class="nav-link active" href="<?php echo $this->url('users'); ?>" aria-current="page">Manage Users</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+    </nav>
+
+    <h3 class="section-title">Operator Information</h3>
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <td><?php echo $this->escapeHtml($this->operator->id); ?></td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td><?php echo $this->escapeHtml($this->operator->name); ?></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td><?php echo $this->escapeHtml($this->operator->email); ?></td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td><?php echo $this->escapeHtml($this->operator->role); ?></td>
+        </tr>
+    </table>
+
+    <a href="<?php echo $this->url('users'); ?>" class="btn btn-secondary">Back to Users</a>
+</div>

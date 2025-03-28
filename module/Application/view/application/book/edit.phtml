@@ -1,0 +1,45 @@
+<h1>Edit Book</h1>
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .form-group input[type="number"] {
+        width: 100px;
+    }
+</style>
+
+<form method="post" action="<?= $this->url('books', ['action' => 'edit', 'id' => $this->book->id]) ?>">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" value="<?= $this->escapeHtml($this->book->title) ?>" required>
+    </div>
+    <div class="form-group">
+        <label for="author">Author</label>
+        <input type="text" name="author" id="author" value="<?= $this->escapeHtml($this->book->author) ?>" required>
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity" min="0" value="<?= $this->escapeHtml($this->book->quantity) ?>" required>
+    </div>
+    <div class="form-group">
+        <label for="status">Status</label>
+        <input type="text" name="status" id="status" value="<?= $this->escapeHtml($this->book->quantity > 0 ? 'Available' : 'Not Available') ?>" readonly>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="<?= $this->url('books') ?>" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

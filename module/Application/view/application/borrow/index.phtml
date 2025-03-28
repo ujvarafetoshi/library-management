@@ -1,0 +1,63 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Manage Borrows</h2>
+        <a href="<?php echo $this->url('logout'); ?>" class="btn btn-logout">Logout</a>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="nav nav-pills mb-4" aria-label="Admin navigation">
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard'); ?>">Dashboard</a>
+        <a class="nav-link" href="<?php echo $this->url('books'); ?>">Manage Books</a>
+        <a class="nav-link" href="<?php echo $this->url('users'); ?>">Manage Users</a>
+        <a class="nav-link active" href="<?php echo $this->url('borrows'); ?>" aria-current="page">Manage Borrows</a>
+        <a class="nav-link" href="<?php echo $this->url('borrows', ['action' => 'payments']); ?>">Payment History</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'settings']); ?>">Settings</a>
+        <a class="nav-link" href="<?php echo $this->url('adminDashboard', ['action' => 'logs']); ?>">Logs</a>
+    </nav>
+
+    <h3 class="section-title"><i class="bi bi-list-ul me-2"></i>All Borrow Records</h3>
+    <?php if (count($borrows) > 0): ?>
+        <table class="table">
+            <caption>All borrow records</caption>
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Student Email</th>
+                <th scope="col">Book Title</th>
+                <th scope="col">Borrow Date</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Return Date</th>
+                <th scope="col">Borrow Fee ($)</th>
+                <th scope="col">Status</th>
+                <th scope="col">Penalty ($)</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($borrows as $borrow): ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($borrow->id); ?></td>
+                    <td><?php echo $this->escapeHtml($borrow->student_email); ?></td>
+                    <td><?php echo $this->escapeHtml($borrow->book_title); ?></td>
+                    <td><?php echo $this->escapeHtml($borrow->borrow_date); ?></td>
+                    <td><?php echo $this->escapeHtml($borrow->due_date); ?></td>
+                    <td><?php echo $this->escapeHtml($borrow->return_date); ?></td>
+                    <td><?php echo number_format($borrow->borrow_fee, 2); ?></td>
+                    <td><?php echo $this->escapeHtml($borrow->status); ?></td>
+                    <td><?php echo number_format($borrow->getPenalty($penaltyRate), 2); ?></td>
+                    <td>
+                        <?php if ($borrow->status === 'Aktiv'): ?>
+                            <a href="<?php echo $this->url('borrows', ['action' => 'return', 'id' => $borrow->id]); ?>" class="btn btn-success btn-sm">Return</a>
+                            <?php if ($borrow->getPenalty($penaltyRate) > 0): ?>
+                                <a href="<?php echo $this->url('borrows', ['action' => 'pay-penalty', 'id' => $borrow->id]); ?>" class="btn btn-warning btn-sm">Pay Penalty</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+        </table>
+    <?php else: ?>
+        <p class="no-data">No borrow records found.</p>
+    <?php endif; ?>
+</div>
